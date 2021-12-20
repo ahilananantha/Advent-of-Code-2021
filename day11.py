@@ -1,4 +1,3 @@
-from logging import root
 from aocd.models import Puzzle
 import copy
 
