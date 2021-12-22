@@ -98,11 +98,41 @@ def lowest_risk_path(risk_level_matrix, dim_multiplier = 1):
                     neighbor_node = HeapNode(neighbor_total_risk, neighbor_coord, curr_node.coord)
                     heapq.heappush(heap, neighbor_node)
 
+    def get_path():
+        path = []
+        coord = (nrows - 1, ncols - 1)
+        while coord != None:
+            path.append(coord)
+            coord = total_risk[coord][1]
+        path.reverse()
+        return path
+
     calc_shortest_path()
-    return total_risk[(nrows - 1, ncols - 1)][0]
+    return (total_risk[(nrows - 1, ncols - 1)][0], get_path())
 
-print(f"Test input lowest total risk path: {lowest_risk_path(process_input_data(test_input_data))}")
-print(f"Puzzle input lowest total risk path: {lowest_risk_path(process_input_data(puzzle_input_data()))}")
+def draw_path(path):
+    matrix = []
+    nrows = path[-1][0] + 1
+    ncols = path[-1][1] + 1
+    for i in range(0, nrows):
+        matrix.append([" "] * ncols)
+    for coord in path:
+        matrix[coord[0]][coord[1]] = "#"
+    for i in range(0, nrows):
+        print("".join(matrix[i]))
 
-print(f"Test input (5x) lowest total risk path: {lowest_risk_path(process_input_data(test_input_data), dim_multiplier=5)}")
-print(f"Puzzle input (5x) lowest total risk path: {lowest_risk_path(process_input_data(puzzle_input_data()), dim_multiplier=5)}")
+(test_lowest_risk, test_path) = lowest_risk_path(process_input_data(test_input_data))
+print(f"Test input lowest total risk path: {test_lowest_risk}")
+draw_path(test_path)
+
+(puzzle_lowest_risk, puzzle_path) = lowest_risk_path(process_input_data(puzzle_input_data()))
+print(f"Puzzle input lowest total risk path: {puzzle_lowest_risk}")
+draw_path(puzzle_path)
+
+(test_lowest_risk_5x, test_path_5x) = lowest_risk_path(process_input_data(test_input_data), dim_multiplier=5)
+print(f"Test input (5x) lowest total risk path: {test_lowest_risk_5x}")
+draw_path(test_path_5x)
+
+(puzzle_lowest_risk_5x, puzzle_path_5x) = lowest_risk_path(process_input_data(puzzle_input_data()), dim_multiplier=5)
+print(f"Puzzle input (5x) lowest total risk path: {puzzle_lowest_risk_5x}")
+#draw_path(puzzle_path_5x)
