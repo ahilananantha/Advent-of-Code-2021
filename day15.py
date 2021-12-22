@@ -121,18 +121,29 @@ def draw_path(path):
     for i in range(0, nrows):
         print("".join(matrix[i]))
 
+def detect_up_or_left_move(path):
+    for i in range(0, len(path) - 1):
+        if path[i + 1][0] < path[i][0]:
+            print(f"   up move from: {path[i]} to {path[i+1]}")
+        if path[i + 1][1] < path[i + 1][1]:
+            print(f"   left move from: {path[i]} to {path[i+1]}")
+
 (test_lowest_risk, test_path) = lowest_risk_path(process_input_data(test_input_data))
 print(f"Test input lowest total risk path: {test_lowest_risk}")
-draw_path(test_path)
+#draw_path(test_path)
+detect_up_or_left_move(test_path)
 
 (puzzle_lowest_risk, puzzle_path) = lowest_risk_path(process_input_data(puzzle_input_data()))
 print(f"Puzzle input lowest total risk path: {puzzle_lowest_risk}")
-draw_path(puzzle_path)
+#draw_path(puzzle_path)
+detect_up_or_left_move(puzzle_path)
 
 (test_lowest_risk_5x, test_path_5x) = lowest_risk_path(process_input_data(test_input_data), dim_multiplier=5)
 print(f"Test input (5x) lowest total risk path: {test_lowest_risk_5x}")
-draw_path(test_path_5x)
+#draw_path(test_path_5x)
+detect_up_or_left_move(test_path_5x)
 
 (puzzle_lowest_risk_5x, puzzle_path_5x) = lowest_risk_path(process_input_data(puzzle_input_data()), dim_multiplier=5)
 print(f"Puzzle input (5x) lowest total risk path: {puzzle_lowest_risk_5x}")
 #draw_path(puzzle_path_5x)
+detect_up_or_left_move(puzzle_path_5x)
