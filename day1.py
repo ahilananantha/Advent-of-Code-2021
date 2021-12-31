@@ -4,19 +4,18 @@ def num_incrs(nums):
     prev = None
     num_incr = 0
     for curr in nums:
-        if prev != None and curr > prev:
+        if prev is not None and curr > prev:
             num_incr += 1
         prev = curr
     return num_incr
 
-#print(num_incrs([199, 200, 208, 210, 200, 207, 240, 269, 260, 263]))
+print(f"Part 1 Test: {num_incrs([199, 200, 208, 210, 200, 207, 240, 269, 260, 263])}")
 
-def day1_part1():
+def puzzle_input():
     puzzle = Puzzle(year=2021, day=1)
-    nums = [int(line) for line in puzzle.input_data.split('\n')]
-    return num_incrs(nums)
+    return [int(line) for line in puzzle.input_data.splitlines()]
 
-#print(f"Day 1 Part 1{day1_part1()}")
+print(f"Day 1 Part 1: {num_incrs(puzzle_input())}")
 
 def three_measure_sum(nums, i):
     if i < 2:
@@ -37,11 +36,14 @@ def num_incrs_three_measure(nums):
         prev_sum = curr_sum
     return num_incr
 
-#print(num_incrs_three_measure([607, 618, 618, 617, 647, 716, 769, 792]))
+def num_incrs_three_measure2(nums):
+    num_incr = 0
 
-def day1_part2():
-    puzzle = Puzzle(year = 2021, day = 1)
-    nums = [int(line) for line in puzzle.input_data.split('\n')]
-    return num_incrs_three_measure(nums)
+    for i in range(0, len(nums) - 3):
+        if nums[i + 3] > nums[i]:
+            num_incr += 1
+    return num_incr
 
-#print(f"Day1 Part2: {day1_part2()}")
+print(f"Part 2 Test: {num_incrs_three_measure2([607, 618, 618, 617, 647, 716, 769, 792])}")
+
+print(f"Day 1 Part 2: {num_incrs_three_measure2(puzzle_input())}")
